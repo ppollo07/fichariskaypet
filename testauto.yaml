@@ -1,0 +1,20 @@
+# NOTE: Make sure to update the 'testproject-agent' container volume with a valid local path.
+# To execute this docker-compose, store it in a file (e.g. testproject-agent.yaml) an run:
+# docker-compose -f testauto.yaml up -d
+
+version: "3.1"
+services:
+  testproject-agent:
+    image: testproject/agent:latest
+    container_name: FicharLlegada
+    depends_on:
+      - chrome
+    volumes:
+      - /var/services/homes/ppollo07:/var/services/homes/ppollo07/TestRun/agent
+    environment:
+      TP_API_KEY: "amaI4gy6Om_TXgoum6O6Y1nq-PsmptGhodyJCI8mAxc1"
+      TP_AGENT_ALIAS: "DockerAgent"
+      CHROME: "chrome:4444"
+  chrome:
+    image: selenium/standalone-chrome
+    shm_size: '1gb'
